@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Task, Usuario, Transaccion
+from django.contrib.auth import authenticate
+from rest_framework.response import Response
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -10,9 +12,30 @@ class TaskSerializer(serializers.ModelSerializer):
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('correo', 'user', 'contrasena', 'dinero')
+        fields = ('user', 'contrasena', 'saldo')
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Usuario
+		fields = ('user', 'contraseña')
+	def create(self, clean_data):
+		user_obj = Usuario.objects.create_user(user=clean_data['user'], contrasena=clean_data['contraseña'])
+		user_obj.username = clean_data['username']
+		user_obj.save()
+		return user_obj
+
+class UserLoginSerializer(serializers.Serializer):
+	userdb = serializers.CharField()
+	contrasenadb = serializers.CharField()
+	def check_user(self, clean_data):
+		usercheck = authenticate(user=clean_data['user'], contrasena=clean_data['contraseña'])
+		if not usercheck:
+			raise Response('user not found')
+		return usercheck
 
 class TransaccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaccion
-        fields = ('user', 'id', 'fecha', 'total', 'estado', 'target') 
+        fields = ('nrotransaccion', 'fecha', 'total', 'estado', 'usuario_origen', 'usuario_destino')
+        
