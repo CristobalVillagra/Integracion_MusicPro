@@ -1,6 +1,5 @@
 {% load static %}
 {%  extends 'core/base.html'  %}
-
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +12,7 @@
   <!--iconos-->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-  <!--Google Fonts-->
+  <!--Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -31,7 +30,9 @@
       <br>
       <h2 class="text-2xl font-bold mb-4 text-center">Ingreso de cuenta</h2>
       <br>
-      <form method="post" action="/api/v2/login/" class="flex flex-col">
+      <form method="post" action="/login/">
+        {% csrf_token %}
+        {{form.as_p}}
         <div class="mb-4 flex items-center">
           <i class="fas fa-user mr-2"></i>
           <label for="user" class="block font-medium mb-0"><b>Usuario</b></label>

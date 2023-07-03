@@ -1,5 +1,6 @@
-{% extends 'base.html' %}
-{% block content %}
+<!--{% extends 'base.html' %}
+
+{% block content %}-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,15 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-  
+  <header class="sticky-nav bg-gray-900 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <nav class="bg-white dark:bg-v-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-4">
+          
+        </div>
+      </nav>
+    </div>
+  </header>
 
 
 
@@ -40,7 +49,7 @@
 
 
 
-      <form method="post" action="/api/v2/register/" class="flex flex-col">
+      <form method="post" action="/register/" class="flex flex-col">
         <div class="mb-4 flex items-center">
           <i class="fas fa-user mr-2"></i>
           <label for="user" class="block font-medium mb-0"><b>Usuario</b></label>
@@ -67,14 +76,45 @@
     </div>
   </div>
 
-  
+  <footer class="bg-white dark:bg-gray-900 mt-auto">
+    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div class="md:flex md:justify-between">
+        <div class="mb-6 md:mb-0">
+          
+        </div>
+        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div></div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Siguenos</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                
+              </li>
+              <li>
+                
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                <a href="#" class="hover:underline">Politica de Privacidad</a>
+              </li>
+              <li>
+                <a href="#" class="hover:underline">Terminos &amp; Condiciones</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet et elit nec imperdiet. Mauris tempor non ligula id finibus. Maecenas pulvinar odio et lectus ullamcorper, non rhoncus mi suscipit. Integer nec felis iaculis, pellentesque enim non, tincidunt ex. Cras turpis sapien, ornare ut dui eget, egestas semper ligula. Mauris id hendrerit purus. Etiam quis euismod dui, at dictum lacus. Suspendisse potenti. Vivamus eget dui nunc. Cras non ultrices mi, et rutrum risus.
-</p>
 
-{% endblock %}
+
+<!--{% endblock %}-->
 
 </body>
 

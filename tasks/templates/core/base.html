@@ -11,19 +11,30 @@
 </head>
 <body>
    
-    <h2> inicio </h2>
-    <ul>
-        <li><a href={% url 'home' %}>inicio</a></li>
-        <li><a href={% url 'products' %}>Productos</a></li>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">home</a>
+        
+            </li>
+            <li>
+                <a href="/perfil">perfil</a>
+            </li>
+            <li>
+                <a href="/products">/products</a>
+            </li>
 
         
-        {% if request.user.is_authenticated %}
-            <li><a href={% url 'exit' %}>Salir</a></li>
-        {% else% }
-            <li><a href={% url 'login' %}>Ingresar</a></li>
-        {% endif %}
-    </ul>
-    {% block content %}{% endblock %} 
+            {% if request.user.is_authenticated %}
+                <li><a href={% url 'exit' %}>Salir</a></li>
+            {% else% }
+                <li><a href={% url 'login' %}>Ingresar</a></li>
+            {% endif %}
+        </ul>
+        
+    </nav>
+    {% block content %}
+    {% endblock %} 
 
 </body>
 </html>

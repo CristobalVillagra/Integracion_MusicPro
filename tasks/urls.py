@@ -12,14 +12,15 @@ router.register(r'usuarios', views.UsuarioView, 'usuario')
 router.register(r'transacciones', views.TransaccionView, 'usuario')
 
 
-urlpatterns = [
-    path('', home, name='home'),
-    path('admin/', admin.site.urls),
-    path("api/v1/", include(router.urls)),
+urlpatterns = [                          
+    path('', views.home, name='home'),
+    path('', views.registerview),
+    path('login/', views.registerview),
+    path("api/v1/", include(router.urls)),                       
     path('docs/', include_docs_urls(title="Tasks API")),
     path('products/', products, name='products'),
     path('exit/', views.exit, name="exit"),
-   
+    path('perfil/', views.perfilview)
     
 
 

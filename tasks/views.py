@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializer import TaskSerializer, UsuarioSerializer, TransaccionSerializer, UserLoginSerializer, UserRegisterSerializer
 from .models import Task, Usuario, Transaccion
+from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import logout, login
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -39,18 +41,79 @@ def index(request):
 def home(request):
     return render(request, 'core/home.html')
 
-@login_required
-def registerview(request):
-      return render(request, 'core/base.html')
+@api_view(['POST'])
+def UserRegister (request):
+     usr_entrante = request.data['user']
+     pass_entrante = request.data['contrasena']
+     url = 'login.html'
+     response = requests.get(url)
+     content = response.json()
+     saldo_externo = content['saldo']
+     try:
+        newuser = Usuario(user=usr_entrante, contrasena=pass_entrante, saldo=saldo_externo)
+        newuser.save()
+        return redirect('/login/')
+        
+     except:
+        return Response({'message':'No se pudo crear el usuario, revise bien los campos'},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['POST'])
+def UserLogout(request):
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = ()
+	logout(request)
+	return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserView(request):
+    usuario = request.user
+    serializer = UsuarioSerializer(usuario)
+    return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
 
 def loginview(request):
-	return render(request, 'registration/login.html')
+	return render(request, 'login.html')
+ 
+def registerview(request):
+    if request.method == 'GET':
+        return render(request, 'login.html', {
+            'form': UserCreationForm
+        })
+        
+    else:
+        if request.POST["contrasena1"] == request.POST["contrasena2"]:
+            try:
+                user = User.objects.create_user(
+                    usuario=request.POST['user'], password=request.POST["contrasena1"])
+                user.save()
+                login(request,user),
+                return redirect(perfilview)            
+            except IntegrityError:
+                return render(request, 'login.html', {
+                    'form': UserCreationForm,
+                    "error": 'User alredy exist'
+                })
+                
+        return render(request, 'login.html', {
+            'form': UserCreationForm,
+            "error": 'password do not match'
+            
+        })
+    
+    
+
+def loginview(request):
+	return render(request, 'core/base.html')
 
 def products (request): 
     return render(request, 'core/products.html')
 
 def perfilview(request):
-    usuario = request.session['usuario']
+    usuario = request.session['user']
     usr_encontrado = Usuario.objects.get(user = usuario)
     dinero_usuario = usr_encontrado.saldo
     response = requests.get(url, timeout=10)    
