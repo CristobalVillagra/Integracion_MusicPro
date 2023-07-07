@@ -23,6 +23,8 @@ urlpatterns = [
     path('', include ("tasks.urls")), 
     path('admin/', admin.site.urls),
     path('tasks/', include('tasks.urls')),
+    path('user/', views.user, name='usuarios'),
+    path('transacciones/', views.transacciones, name='transacciones'),
    
 
 ]

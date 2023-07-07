@@ -41,6 +41,33 @@ def index(request):
 def home(request):
     return render(request, 'core/home.html')
 
+def crear_usuario(request):
+    if request.method == 'POST':
+        user = request.POST.get('user')
+        contrasena = request.POST.get('contrasena')
+        saldo = request.POST.get('saldo')
+        Usuario.objects.create(user=user, contrasena=contrasena, saldo=saldo)
+        return redirect('user')
+    return render(request, 'register.html')
+
+def editar_usuario(request, user):
+    user = Usuario.objects.get(user=user)
+    if request.method == 'POST':
+        user.user = request.POST.get('user')
+        user.contrasena = request.POST.get('contrasena')
+        user.saldo = request.POST.get('saldo')
+        user.save()
+        return redirect('user')
+    return render(request, 'perfil.html', {'usuario': user})
+
+def eliminar_usuario(request, user):
+    user = Usuario.objects.get(user=user)
+    if request.method == 'POST':
+        user.delete()
+        return redirect('user')
+    return render(request, 'delete.html', {'usuario': user})
+
+
 @api_view(['POST'])
 def UserRegister (request):
      usr_entrante = request.data['user']
@@ -57,15 +84,6 @@ def UserRegister (request):
      except:
         return Response({'message':'No se pudo crear el usuario, revise bien los campos'},status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
-@api_view(['POST'])
-def UserLogout(request):
-	permission_classes = (permissions.AllowAny,)
-	authentication_classes = ()
-	logout(request)
-	return Response(status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -104,10 +122,6 @@ def registerview(request):
             
         })
     
-    
-
-def loginview(request):
-	return render(request, 'core/base.html')
 
 def products (request): 
     return render(request, 'core/products.html')
@@ -132,3 +146,11 @@ def saludo(request):
 def exit(request):
     logout(request)
     return redirect('home')
+
+def user(request):
+    user = Usuario.objects.all()
+    return render(request, 'usuarios.html', {'usuarios': user})
+
+def transacciones(request):
+    transacciones = Transaccion.objects.all()
+    return render(request, 'tasks/transacciones.html', {'transacciones': transacciones})

@@ -1,0 +1,92 @@
+
+
+{% load static %}
+    <h1>Transacciones</h1>
+    <table class="table">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Formulario de Transferencia</title>
+
+            <!--iconos-->
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+
+            <!--Google Fonts-->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+
+            <!--CSS-->
+            <link rel="stylesheet" href="{% static 'style.css' %}">
+            <link rel="stylesheet" href="fontawesome.min.css">
+
+        </head>
+        
+        <thead>
+            <tr>
+                <th>Nro. de Transacción</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Usuario Origen</th>
+                <th>Usuario Destino</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaccion in transacciones %}
+            <tr>
+                <td>{{ transaccion.nrotransaccion }}</td>
+                <td>{{ transaccion.fecha }}</td>
+                <td>{{ transaccion.total }}</td>
+                <td>{{ transaccion.estado }}</td>
+                <td>{{ transaccion.usuario_origen }}</td>
+                <td>{{ transaccion.usuario_destino.user }}</td>
+            </tr>
+            {% endfor %}
+
+            
+        </tbody>
+    </table>
+
+    <body>
+        
+        <div class="flex">
+            <div class="form-container">
+                <h2 class="text-3xl font-bold">Formulario de Transferencia <i
+                        class="fas fa-exchange-alt header-icon spin-animation"></i></h2>
+                <form method="POST" action="/transaccion/" class="mt-6">
+                    <br>
+                    <br>
+
+                    <div class="mb-6">
+                        <label for="usuario-destino" class="block font-semibold">Usuario Origen <i
+                                class="fas fa-user"></i></label>
+                        <input type="text" class="border py-2 px-3" id="usuario-origen" name="usuario-origen"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="usuario-destino" class="block font-semibold">Usuario Destino <i
+                                class="fas fa-user"> </i></label>
+                        <input type="text" class="border py-2 px-3" id="usuario-destino" name="usuario-destino"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="total" class="block font-semibold">Monto a Transferir <i
+                                class="fas fa-dollar-sign"></i></label>
+                        <input type="number" class="border py-2 px-3" id="total" name="total" required>
+                    </div>
+                    <button type="submit"
+                            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            Transferir <i class="fas fa-money-bill-wave button-icon"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    </body>

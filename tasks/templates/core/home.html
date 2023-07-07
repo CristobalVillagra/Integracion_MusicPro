@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block content %}
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -24,48 +24,45 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-  
-
-
-
-
-  <div class="flex-grow container mx-auto flex items-center justify-center py-8">
-    <div class="max-w-md w-full bg-white shadow-md rounded px-6 py-4">
-      <br>
-      <h2 class="text-2xl font-bold mb-4 text-center">Registro de Usuario</h2>
-      <br>
+  {% block content %}
+    <div class="flex-grow container mx-auto flex items-center justify-center py-8">
+      <div class="max-w-md w-full bg-white shadow-md rounded px-6 py-4">
+        <br>
+        <h2 class="text-2xl font-bold mb-4 text-center">Registro de Usuario</h2>
+        <br>
 
 
 
 
 
 
-      <form method="post" action="/api/v2/register/" class="flex flex-col">
-        <div class="mb-4 flex items-center">
-          <i class="fas fa-user mr-2"></i>
-          <label for="user" class="block font-medium mb-0"><b>Usuario</b></label>
+        <form method="post" action="/register/" class="flex flex-col">
+          <div class="mb-4 flex items-center">
+            <i class="fas fa-user mr-2"></i>
+            <label for="user" class="block font-medium mb-0"><b>Usuario</b></label>
+          </div>
+          <input type="text" name="user" id="user" class="w-full border border-gray-300 rounded px-3 py-2" required>
+          <br>
+        <div class="mb-4">
+        <label for="contrasena" class="block font-medium mb-3 flex items-center">
+        <i class="fas fa-lock mr-2"></i>
+        <b>Contraseña</b>
+        </label>
+        <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        <br>
+        <br>
+        <label for="contrasena" class="block font-medium mb-3 flex items-center">
+        <i class="fas fa-lock mr-2"></i>
+        <b>Confirmar Contraseña</b>
+        </label>
+        <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
         </div>
-        <input type="text" name="user" id="user" class="w-full border border-gray-300 rounded px-3 py-2" required>
-        <br>
-      <div class="mb-4">
-      <label for="contrasena" class="block font-medium mb-3 flex items-center">
-      <i class="fas fa-lock mr-2"></i>
-      <b>Contraseña</b>
-      </label>
-      <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
-      <br>
-      <br>
-      <label for="contrasena" class="block font-medium mb-3 flex items-center">
-      <i class="fas fa-lock mr-2"></i>
-      <b>Confirmar Contraseña</b>
-      </label>
-      <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
+          <br>
+          <button type="submit" class="btn-register">Registrarse</button>
+        </form>
       </div>
-        <br>
-        <button type="submit" class="btn-register">Registrarse</button>
-      </form>
     </div>
-  </div>
+  {% endblock %}
 
   
 
@@ -74,7 +71,6 @@
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet et elit nec imperdiet. Mauris tempor non ligula id finibus. Maecenas pulvinar odio et lectus ullamcorper, non rhoncus mi suscipit. Integer nec felis iaculis, pellentesque enim non, tincidunt ex. Cras turpis sapien, ornare ut dui eget, egestas semper ligula. Mauris id hendrerit purus. Etiam quis euismod dui, at dictum lacus. Suspendisse potenti. Vivamus eget dui nunc. Cras non ultrices mi, et rutrum risus.
 </p>
 
-{% endblock %}
 
 </body>
 
