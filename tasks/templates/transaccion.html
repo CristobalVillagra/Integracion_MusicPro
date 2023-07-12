@@ -1,5 +1,5 @@
 
-
+{% extends 'base.html' %}
 {% load static %}
     <h1>Transacciones</h1>
     <table class="table">
@@ -56,7 +56,7 @@
             <div class="form-container">
                 <h2 class="text-3xl font-bold">Formulario de Transferencia <i
                         class="fas fa-exchange-alt header-icon spin-animation"></i></h2>
-                <form method="POST" action="/transaccion/" class="mt-6">
+                <form method="POST" action="api/transacciones/" class="mt-6">
                     <br>
                     <br>
 
@@ -90,3 +90,4 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
     </body>
+ 
